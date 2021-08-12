@@ -13,7 +13,7 @@ mkdir -p .profile.d
 
 HELM_VERSION=`cat .helm_version`
 echo "Downloading helm from https://storage.googleapis.com/kubernetes-helm/helm-$HELM_VERSION-linux-amd64.tar.gz"
-wget https://storage.googleapis.com/kubernetes-helm/helm-$HELM_VERSION-linux-amd64.tar.gz -O- | tar -xz --strip 1 linux-amd64/helm
+wget https://get.helm.sh/helm-$HELM_VERSION-linux-amd64.tar.gz -O- | tar -xz --strip 1 linux-amd64/helm
 mv helm custom-bin
 
 echo "export PATH=$PATH:$HOME/custom-bin" >> .profile.d/custom_binaries.sh
