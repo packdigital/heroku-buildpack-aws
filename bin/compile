@@ -3,29 +3,31 @@
 
 AWS_CLI_URL="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 BUILD_DIR=$1
-INSTALL_DIR=".awscli"
+INSTALL_DIR="${BUILD_DIR}/.awscli"
 TMP_DIR=$(mktemp -d)
 
-# Open build dir
-cd $BUILD_DIR
+echo $BUILD_DIR
 
-#mkdir -p custom-bin
-#mkdir -p .profile.d
+mkdir -p $BUILD_DIR/custom-bin
+mkdir -p $BUILD_DIR/.profile.d
+mkdir -p "${INSTALL_DIR}"
 
 echo "-----> Downloading AWS CLI"
 curl --silent --show-error --fail -o "${TMP_DIR}/awscliv2.zip" "${AWS_CLI_URL}"
 unzip -qq -d "${TMP_DIR}" "${TMP_DIR}/awscliv2.zip"
 
-#echo "-----> Installing AWS CLI"
-#mkdir "${INSTALL_DIR}"
+echo "-----> Installing AWS CLI"
 
-sudo "${TMP_DIR}/aws/install"
-#custom-bin/aws --version
+echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${BUILD_DIR}/custom-bin"
 
-#echo "-----> Exporting PATH"
+"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${BUILD_DIR}/custom-bin"
 
-#echo "export PATH=$PATH:$HOME/custom-bin" >> .profile.d/custom_binaries.sh
+$BUILD_DIR/custom-bin/aws --version
 
-#rm -rf "${TMP_DIR}"
+echo "-----> Exporting PATH"
+
+echo "export PATH=$PATH:$HOME/custom-bin" >> .profile.d/custom_binaries.sh
+
+rm -rf "${TMP_DIR}"
 
 echo "-----> Successfully installed AWS CLI"
