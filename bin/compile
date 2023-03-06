@@ -12,11 +12,10 @@ function indent() {
 }
 
 AWS_CLI_URL="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-
 BUILD_DIR=$1
 BUILDPACK_DIR="$(dirname $(dirname $0))"
 PATH_DIR="/app"
-INSTALL_DIR="/$PATH_DIR/.awscli"
+INSTALL_DIR="$PATH_DIR/.awscli"
 TMP_DIR=$(mktemp -d)
 
 echo "-----> Downloading AWS CLI"
@@ -38,21 +37,21 @@ if [[ "${BUILD_DIR}" != /app ]]; then
   ln -nsf "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
 fi
 
-mkdir -p /$PATH_DIR/custom-bin
-mkdir -p /$PATH_DIR/.profile.d
+mkdir -p $PATH_DIR/custom-bin
+mkdir -p $PATH_DIR/.profile.d
 mkdir -p "${INSTALL_DIR}"
 
 echo "-----> Installing AWS CLI"
 
-echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/$PATH_DIR/custom-bin"
+echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "$PATH_DIR/custom-bin"
 
-"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/$PATH_DIR/custom-bin"
+"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "$PATH_DIR/custom-bin"
 
-/$PATH_DIR/custom-bin/aws --version
+$PATH_DIR/custom-bin/aws --version
 
 echo "-----> Exporting PATH"
 
-echo "export PATH=$PATH:$HOME/custom-bin" >> /$PATH_DIR/.profile.d/aws_binaries.sh
+echo "export PATH=$PATH:$HOME/custom-bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
 
 rm -rf "${TMP_DIR}"
 
