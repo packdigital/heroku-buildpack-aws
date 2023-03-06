@@ -18,6 +18,8 @@ PATH_DIR="/app"
 INSTALL_DIR="$PATH_DIR/.awscli"
 TMP_DIR=$(mktemp -d)
 
+cd $BUILD_DIR
+
 echo "-----> Downloading AWS CLI"
 curl --silent --show-error --fail -o "${TMP_DIR}/awscliv2.zip" "${AWS_CLI_URL}" |& indent
 unzip -qq -d "${TMP_DIR}" "${TMP_DIR}/awscliv2.zip" |& indent
@@ -32,7 +34,6 @@ mkdir -p "${BUILD_DIR}/.awscli"
 # so that we can use `/app` paths for the installer, so that the symlinks it creates
 # will use /app paths. A symlink is used instead of file copying to improve build times.
 if [[ "${BUILD_DIR}" != /app ]]; then
-  mkdir -p /app
   ln -nsf "${BUILD_DIR}" "${PATH_DIR}"
   ln -nsf "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
 fi
@@ -43,15 +44,21 @@ mkdir -p "${INSTALL_DIR}"
 
 echo "-----> Installing AWS CLI"
 
-echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "$PATH_DIR/custom-bin"
+echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${PATH_DIR}/custom-bin"
 
-"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "$PATH_DIR/custom-bin"
+"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${PATH_DIR}/custom-bin"
 
 $PATH_DIR/custom-bin/aws --version
 
+ls -la $PATH_DIR/custom-bin
+
+ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
+
+ls -la $PATH_DIR/custom-bin
+
 echo "-----> Exporting PATH"
 
-echo "export PATH=$PATH:$HOME/custom-bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
+echo "export PATH=$PATH:$HOME/custom-bin" >> $BUILD_DIR/.profile.d/aws_binaries.sh
 
 rm -rf "${TMP_DIR}"
 
