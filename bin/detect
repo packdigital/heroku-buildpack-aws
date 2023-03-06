@@ -1,8 +1,4 @@
 #!/bin/sh
 
-if [ -f $1/.helm_version ]; then
-    echo "Using Helm binaries"
-    exit 0
-else
-    exit 1
-fi
+echo 'awscli'
+exit 0
