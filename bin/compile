@@ -15,7 +15,8 @@ AWS_CLI_URL="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 
 BUILD_DIR=$1
 BUILDPACK_DIR="$(dirname $(dirname $0))"
-INSTALL_DIR="/app/.awscli"
+PATH_DIR="/app"
+INSTALL_DIR="/$PATH_DIR/.awscli"
 TMP_DIR=$(mktemp -d)
 
 echo "-----> Downloading AWS CLI"
@@ -33,25 +34,25 @@ mkdir -p "${BUILD_DIR}/.awscli"
 # will use /app paths. A symlink is used instead of file copying to improve build times.
 if [[ "${BUILD_DIR}" != /app ]]; then
   mkdir -p /app
+  ln -nsf "${BUILD_DIR}" "${PATH_DIR}"
   ln -nsf "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
 fi
 
-
-mkdir -p /app/custom-bin
-mkdir -p /app/.profile.d
+mkdir -p /$PATH_DIR/custom-bin
+mkdir -p /$PATH_DIR/.profile.d
 mkdir -p "${INSTALL_DIR}"
 
 echo "-----> Installing AWS CLI"
 
-echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/app/custom-bin"
+echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/$PATH_DIR/custom-bin"
 
-"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/app/custom-bin"
+"${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "/$PATH_DIR/custom-bin"
 
-/app/custom-bin/aws --version
+/$PATH_DIR/custom-bin/aws --version
 
 echo "-----> Exporting PATH"
 
-echo "export PATH=$PATH:$HOME/custom-bin" >> /app/.profile.d/custom_binaries.sh
+echo "export PATH=$PATH:$HOME/custom-bin" >> /$PATH_DIR/.profile.d/aws_binaries.sh
 
 rm -rf "${TMP_DIR}"
 
