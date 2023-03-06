@@ -44,17 +44,11 @@ mkdir -p "${INSTALL_DIR}"
 
 echo "-----> Installing AWS CLI"
 
-echo "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${PATH_DIR}/custom-bin"
-
 "${TMP_DIR}/aws/install" --install-dir "${INSTALL_DIR}" --bin-dir "${PATH_DIR}/custom-bin"
 
 $PATH_DIR/custom-bin/aws --version
 
-ls -la $PATH_DIR/custom-bin
-
 ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
-
-ls -la $PATH_DIR/custom-bin
 
 echo "-----> Exporting PATH"
 
