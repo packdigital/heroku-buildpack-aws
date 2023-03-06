@@ -1,14 +1,16 @@
-# Heroku buildpack with Helm binary in PATH
+Heroku buildpack for the AWS CLI
+================================
 
-## Usage
-1. Make sure to have a `.helm_version` file at the root of your project, for example
+This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks)
+that allows one to run AWS CLI in a dyno alongside application code.
 
-```
-v2.14.0
-```
+Usage
+-----
 
-2. Add this buildpack to your heroku project
+Example usage:
 
-```
-heroku buildpacks:add https://github.com/moovweb/heroku-buildpack-helm
-```
+    $ heroku buildpacks:add heroku-community/awscli
+
+    $ heroku config:add AWS_ACCESS_KEY_ID=<aws-access-key>
+    $ heroku config:add AWS_SECRET_ACCESS_KEY=<aws-secret-access-key>
+    $ heroku config:add AWS_DEFAULT_REGION=<default-aws-region>
