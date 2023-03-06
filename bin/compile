@@ -22,7 +22,6 @@ echo "-----> Downloading AWS CLI"
 curl --silent --show-error --fail -o "${TMP_DIR}/awscliv2.zip" "${AWS_CLI_URL}" |& indent
 unzip -qq -d "${TMP_DIR}" "${TMP_DIR}/awscliv2.zip" |& indent
 
-echo "-----> Installing AWS CLI"
 mkdir -p "${BUILD_DIR}/.awscli"
 
 # The AWS installer creates symlinks that use absolute paths, as such the install
