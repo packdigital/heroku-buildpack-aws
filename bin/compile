@@ -48,7 +48,7 @@ echo "-----> Installing AWS CLI"
 
 $PATH_DIR/custom-bin/aws --version
 
-#ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
+ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
 
 echo "-----> Exporting PATH"
 
