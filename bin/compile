@@ -34,8 +34,8 @@ mkdir -p "${BUILD_DIR}/.awscli"
 # so that we can use `/app` paths for the installer, so that the symlinks it creates
 # will use /app paths. A symlink is used instead of file copying to improve build times.
 if [[ "${BUILD_DIR}" != /app ]]; then
-  ln -nsf "${BUILD_DIR}" "${PATH_DIR}"
-  ln -nsf "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
+  ln -s "${BUILD_DIR}" "${PATH_DIR}"
+  ln -s "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
 fi
 
 mkdir -p $PATH_DIR/custom-bin
@@ -51,7 +51,7 @@ $PATH_DIR/custom-bin/aws --version
 pwd
 echo $BUILD_DIR
 echo $PATH_DIR
-ls
+ls -la
 
 ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
 
