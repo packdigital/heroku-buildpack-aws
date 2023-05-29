@@ -48,16 +48,11 @@ echo "-----> Installing AWS CLI"
 
 $PATH_DIR/custom-bin/aws --version
 
-pwd
-echo $BUILD_DIR
-echo $PATH_DIR
-ls -la
-
-ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
+#ln -s $PATH_DIR/.awscli/v2/current/bin/aws $BUILD_DIR/custom-bin/aws
 
 echo "-----> Exporting PATH"
 
-echo "export PATH=$PATH:$HOME/custom-bin" >> $BUILD_DIR/.profile.d/aws_binaries.sh
+echo "export PATH=$PATH:$HOME/custom-bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
 
 rm -rf "${TMP_DIR}"
 
