@@ -20,13 +20,12 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install --install-dir .awscli --update
           
-          cp .awscli/v2/current/bin/aws custom-bin
-          cp .awscli/v2/current/bin/aws_completer custom-bin
+          cp /usr/local/bin/aws custom-bin
+          cp /usr/local/bin/aws_completer custom-bin
           
           ls -la custom-bin
-          ls -la .awscli/v2/current/bin
           
-          ./custom-bin/aws --version
+          /usr/local/bin/aws --version
 
       - name: Commit
         run: |
