@@ -18,11 +18,15 @@ jobs:
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
-          sudo ./aws/install --install-dir .awscli --bin-dir custom-bin --update
+          sudo ./aws/install --install-dir .awscli --update
+          
+          cp .awscli/v2/current/bin/aws custom-bin
+          cp .awscli/v2/current/bin/aws_completer custom-bin
           
           ls -la custom-bin
+          ls -la .awscli/v2/current/bin
           
-#          ./custom-bin/aws --version
+          ./custom-bin/aws --version
 
       - name: Commit
         run: |
