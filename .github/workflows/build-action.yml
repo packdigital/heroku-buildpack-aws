@@ -22,7 +22,7 @@ jobs:
           
           ls -la custom-bin
           
-          ./custom-bin/aws --version
+#          ./custom-bin/aws --version
 
       - name: Commit
         run: |
