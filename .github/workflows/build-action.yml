@@ -23,6 +23,8 @@ jobs:
                
           cp .awscli/v2/2.14.5/bin/aws custom-bin
           cp .awscli/v2/2.14.5/bin/aws_completer custom-bin
+          
+          ls -la custom-bin
 
       - name: Commit
         run: |
