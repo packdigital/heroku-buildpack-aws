@@ -14,7 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-  #          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       - name: Install AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.14.5.zip" -o "awscliv2.zip"
@@ -25,5 +24,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.no-reply.github.com"
           git add .awscli/*
+          git add .custom-bin/*
           git commit -m "Update AWS CLI"
           git push
