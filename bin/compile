@@ -9,6 +9,9 @@ INSTALL_DIR="$PATH_DIR/.awscli"
 
 cd $BUILD_DIR
 
+mkdir -p $PATH_DIR/custom-bin
+mkdir -p $PATH_DIR/.profile.d
+
 echo "-----> Installing AWS CLI"
 
 cp -r aws/.awscli $PATH_DIR/.awscli
