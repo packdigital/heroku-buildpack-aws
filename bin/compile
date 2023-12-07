@@ -11,7 +11,7 @@ cd $BUILD_DIR
 
 mkdir -p $PATH_DIR/.profile.d
 
-unzip aws/.awscli.zip
+unzip -qq aws/.awscli.zip
 
 aws/.awscli/v2/2.14.5/bin/aws --version
 
