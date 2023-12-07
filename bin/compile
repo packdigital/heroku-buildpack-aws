@@ -11,7 +11,7 @@ cd $BUILD_DIR
 
 echo "-----> Installing AWS CLI"
 
-cp aws/.awscli $PATH_DIR/.awscli
+cp -r aws/.awscli $PATH_DIR/.awscli
 
 ln -s $PATH_DIR/.awscli/v2/2.14.5/bin/aws $BUILD_DIR/custom-bin/aws
 
