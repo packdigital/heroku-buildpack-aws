@@ -9,6 +9,8 @@ INSTALL_DIR="$PATH_DIR/.awscli"
 
 cd $BUILD_DIR
 
+mkdir "${INSTALL_DIR}"
+
 # The AWS installer creates symlinks that use absolute paths, as such the install
 # location must match the location from which the CLI is eventually run.
 # At runtime the app will be run from /app, however at build time $BUILD_DIR is
