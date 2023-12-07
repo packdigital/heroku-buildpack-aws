@@ -9,10 +9,6 @@ INSTALL_DIR="$PATH_DIR/.awscli"
 
 cd $BUILD_DIR
 
-mkdir "${INSTALL_DIR}"
-mkdir -p $PATH_DIR/custom-bin
-mkdir -p $PATH_DIR/.profile.d
-
 # The AWS installer creates symlinks that use absolute paths, as such the install
 # location must match the location from which the CLI is eventually run.
 # At runtime the app will be run from /app, however at build time $BUILD_DIR is
@@ -22,8 +18,10 @@ mkdir -p $PATH_DIR/.profile.d
 # will use /app paths. A symlink is used instead of file copying to improve build times.
 if [[ "${BUILD_DIR}" != /app ]]; then
   ln -s "${BUILD_DIR}" "${PATH_DIR}"
-  ln -s "${BUILD_DIR}/.awscli" "${INSTALL_DIR}"
 fi
+
+mkdir -p $PATH_DIR/custom-bin
+mkdir -p $PATH_DIR/.profile.d
 
 echo "-----> Installing AWS CLI"
 
