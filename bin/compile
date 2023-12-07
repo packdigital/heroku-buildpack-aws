@@ -27,6 +27,9 @@ echo "-----> Installing AWS CLI"
 
 cp -r aws/.awscli $PATH_DIR/.awscli
 
+ls -la $PATH_DIR/.awscli
+ls -la $PATH_DIR/custom-bin
+
 ln -s $PATH_DIR/.awscli/v2/2.14.5/bin/aws $BUILD_DIR/custom-bin/aws
 
 echo "-----> Exporting PATH"
