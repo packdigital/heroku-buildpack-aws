@@ -9,32 +9,14 @@ INSTALL_DIR="$PATH_DIR/.awscli"
 
 cd $BUILD_DIR
 
-# The AWS installer creates symlinks that use absolute paths, as such the install
-# location must match the location from which the CLI is eventually run.
-# At runtime the app will be run from /app, however at build time $BUILD_DIR is
-# typically a path under /tmp (unless a Heroku CI build, in which case it's /app).
-# In order to make all cases work, we have to create a symlink from /app to $BUILD_DIR,
-# so that we can use `/app` paths for the installer, so that the symlinks it creates
-# will use /app paths. A symlink is used instead of file copying to improve build times.
-if [[ "${BUILD_DIR}" != /app ]]; then
-  ln -s "${BUILD_DIR}" "${PATH_DIR}"
-fi
-
-mkdir -p $PATH_DIR/custom-bin
 mkdir -p $PATH_DIR/.profile.d
 
-echo "-----> Installing AWS CLI"
+unzip aws/.awscli.zip
 
-cp -r aws/.awscli $PATH_DIR/.awscli
-cp aws/.custom-bin/aws $PATH_DIR/custom-bin
-
-ls -la $PATH_DIR/.awscli
-ls -la $PATH_DIR/custom-bin
-
-ln -s $PATH_DIR/.awscli/v2/2.14.5/bin/aws $BUILD_DIR/custom-bin/aws
+aws/.awscli/v2/2.14.5/bin/aws --version
 
 echo "-----> Exporting PATH"
 
-echo "export PATH=$PATH:$HOME/custom-bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
+echo "export PATH=$PATH:$HOME/aws/.awscli/v2/2.14.5/bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
 
 echo "-----> Successfully installed AWS CLI"
