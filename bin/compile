@@ -1,23 +1,15 @@
 #!/usr/bin/env bash
-# bin/compile <build-dir> <cache-dir> <env-dir>
 
-set -euo pipefail
+# Open build dir
+cd $1
 
-BUILD_DIR=$1
-PATH_DIR="/app"
-INSTALL_DIR="$PATH_DIR/.awscli"
+mkdir -p custom-bin
+mkdir -p .profile.d
 
-cd $BUILD_DIR
+curl -Lo aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.11/aws-iam-authenticator_0.6.11_linux_amd64
 
-mkdir -p $PATH_DIR/.profile.d
+chmod +x ./aws-iam-authenticator
 
-unzip -qq aws/.awscli.zip
+mv aws-iam-authenticator custom-bin
 
-.awscli/v2/2.14.5/bin/aws --version
-
-echo "-----> Exporting PATH"
-
-echo "export PATH=$PATH:$HOME/.awscli/v2/2.14.5/bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
-echo "export PATH=$PATH:$PATH_DIR/.awscli/v2/2.14.5/bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
-
-echo "-----> Successfully installed AWS CLI"
+echo "export PATH=$PATH:$HOME/custom-bin" >> .profile.d/aws_custom_binaries.sh
