@@ -18,5 +18,6 @@ unzip -qq aws/.awscli.zip
 echo "-----> Exporting PATH"
 
 echo "export PATH=$PATH:$HOME/.awscli/v2/2.14.5/bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
+echo "export PATH=$PATH:$PATH_DIR/.awscli/v2/2.14.5/bin" >> $PATH_DIR/.profile.d/aws_binaries.sh
 
 echo "-----> Successfully installed AWS CLI"
