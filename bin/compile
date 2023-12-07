@@ -26,7 +26,7 @@ mkdir -p $PATH_DIR/.profile.d
 echo "-----> Installing AWS CLI"
 
 cp -r aws/.awscli $PATH_DIR/.awscli
-cp -r aws/.custom-bin $PATH_DIR/custom-bin
+cp aws/.custom-bin/* $PATH_DIR/custom-bin
 
 ls -la $PATH_DIR/.awscli
 ls -la $PATH_DIR/custom-bin
